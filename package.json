@@ -1,0 +1,27 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Blog project to boost my portfolio",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jamarin02/blog.git"
+  },
+  "keywords": [
+    "blog",
+    "expressjs",
+    "nodejs"
+  ],
+  "author": "Jose Antonio Marín <jamarin02@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamarin02/blog/issues"
+  },
+  "homepage": "https://github.com/jamarin02/blog#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
