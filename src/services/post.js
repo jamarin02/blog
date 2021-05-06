@@ -1,4 +1,5 @@
 const db = require('../db')
+const UserService = require('./user')
 
 const tableName = 'posts'
 
@@ -24,7 +25,18 @@ const getPosts = () => {
         .from(tableName)
 }
 
+const checkUserExists = async (userId) => {
+    return await UserService.getUser(userId) !== undefined
+}
+
 const savePost = async (post) => {
+    if(!await checkUserExists(post.user_id)) {
+        return {
+            status: 409,
+            data: 'User must exists.'
+        }
+    }
+
     return {
         status: 200,
         data: await db

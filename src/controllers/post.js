@@ -23,17 +23,37 @@ const getPost = async (req, res) => {
     }
 }
 
-const getPosts = (req, res) => {
+const getPosts = async (req, res) => {
+    const posts = await PostService.getPosts()
     res.status(200).send({
-        data: 'posts'
+        data: posts
     })
 }
 
-const savePost = (req, res) => {
+const savePost = async (req, res) => {
     const params = req.body
-    res.status(200).send({
-        post: params
-    })
+    const postCheck = Post.check(params)
+
+    if(postCheck !== true) {
+        return res.status(400).send({
+          data: postCheck
+        })
+    }
+
+    const post = await PostService.savePost(params)
+    if(post.status !== 200) {
+        return res.status(post.status).send({
+          data: post.data
+        })
+    } else if(post.status === 200) {
+        return res.status(post.status).send({
+            data: post.data
+        })
+    } else {
+        return res.status(500).send({
+            data: {}
+        })
+    }
 }
 
 const updatePost = (req, res) => {
