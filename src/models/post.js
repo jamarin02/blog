@@ -6,7 +6,7 @@ const check = v.compile({
     title: "string|min:4|max:255",
     excerpt: "string|min:4|max:255",
     content: "string|min:10",
-    user_id: "integer|min:1",
+    user_id: "number|min:1",
     draft: "boolean|optional"
 })
 

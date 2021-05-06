@@ -30,7 +30,7 @@ const savePost = async (post) => {
         data: await db
             .insert(post)
             .into(tableName)
-            .returning("title", "excerpt", "user_id")
+            .returning(["title", "excerpt", "user_id"])
             .then(rows => {
                 return rows[0]
             })
