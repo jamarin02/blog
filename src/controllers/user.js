@@ -39,9 +39,14 @@ const saveUser = async (req, res) => {
         })
     }
     const user = await UserService.saveUser(params)
-    if(user !== null && user !== undefined) {
-        return res.status(200).send({
-            data: user
+    if(user.status !== 200) {
+        return res.status(user.status).send({
+            data: user.data
+        })
+    }
+    else if(user.status === 200) {
+        return res.status(user.status).send({
+            data: user.data
         })
     } else {
         return res.status(500).send({
