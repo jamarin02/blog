@@ -1,0 +1,20 @@
+version: '3.1'
+services:
+  db:
+    build:
+      context: .
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Test1ng
+      APP_DB_USER: boost
+      APP_DB_PASS: Test1ng
+      APP_DB_NAME: blog
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+      - .:/docker-entrypoint-initdb.d/
+    ports:
+      - 5432:5432
+
+volumes:
+  db-data:
+    driver: local

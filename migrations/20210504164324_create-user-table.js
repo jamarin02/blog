@@ -1,15 +1,17 @@
 
 exports.up = function(knex) {
-  let createQuery = `CREATE TABLE users(
-    id SERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE
-   )`
-    return knex.raw(createQuery)
+  return knex.schema
+      .createTable('users', function (table) {
+        table.increments().primary()
+        table.string('username', 255).notNullable().unique()
+        table.string('email', 255).notNullable().unique()
+        table.string('password', 255).notNullable()
+        table.timestamp('created_at').defaultTo(knex.fn.now())
+        table.timestamp('updated_at').defaultTo(knex.fn.now())
+        table.boolean('active').notNullable().defaultTo('false')
+      })
 };
 
 exports.down = function(knex) {
-  let dropQuery = `DROP TABLE users`
-    return knex.raw(dropQuery)
+  return knex.schema.dropTable('users')
 };
