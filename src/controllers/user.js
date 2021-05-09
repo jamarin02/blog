@@ -3,7 +3,6 @@ const User = require('../models/user')
 const jwt = require('../middleware/auth')
 
 const login = async (req, res) => {
-    console.log(req.body)
     const email = req.body.email
     const password = req.body.password
 

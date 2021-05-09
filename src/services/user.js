@@ -8,7 +8,7 @@ const login = async (email, password) => {
         .where("email", email)
         .first()
 
-    if(bcrypt.compare(user.password, password)) return {id: user.id, email: user.email}
+    if(bcrypt.compare(user.password, password)) return {id: user.id, email: user.email, username: user.username}
     return undefined;
 }
 
