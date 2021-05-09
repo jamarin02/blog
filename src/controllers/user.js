@@ -1,5 +1,23 @@
 const UserService = require('../services/user')
 const User = require('../models/user')
+const jwt = require('../middleware/auth')
+
+const login = async (req, res) => {
+    const email = req.body.email
+    const password = req.body.password
+
+    if(email === undefined || password === undefined) return res.send(400)
+
+    const user = await UserService.login(email, password)
+
+    if(user === undefined) return res.sendStatus(404)
+
+    return res.status(200).send({
+        id: user.id,
+        email: user.email,
+        authToken: jwt.generateAuthToken(user)
+    })
+}
 
 const getUser = async (req, res) => {
     const id = req.params.id
@@ -70,6 +88,7 @@ const deleteUser = (req, res) => {
 }
 
 module.exports = {
+    login,
     getUser,
     getUsers,
     saveUser,

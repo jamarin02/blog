@@ -1,6 +1,17 @@
 const db = require('../db')
 const bcrypt = require('bcrypt')
 
+const login = async (email, password) => {
+    const user = await db
+        .select(["id", "email", "password"])
+        .from("users")
+        .where("email", email)
+        .first()
+
+    if(bcrypt.compare(user.password, password)) return {id: user.id, email: user.email}
+    return undefined;
+}
+
 const getUser = (id) => {
     return db
         .select("*")
@@ -24,8 +35,12 @@ const getUsers = () => {
 }
 
 const hashPassword = async (password) => {
-    const salt = await bcrypt.genSalt(10)
-    return await bcrypt.hash(password, salt)
+    return await new Promise((resolve, reject) => {
+        bcrypt.hash(password, 10, function (err, hash) {
+            if (err) reject(err)
+            resolve(hash)
+        });
+    })
 }
 
 const userExists = async ({username, email}) => {
@@ -56,6 +71,7 @@ const saveUser = async(user) => {
 }
 
 module.exports = {
+    login,
     getUser,
     getUserBy,
     getUsers,
