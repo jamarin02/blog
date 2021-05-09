@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 
 const login = async (email, password) => {
     const user = await db
-        .select(["id", "email", "password"])
+        .select(["id", "username", "email", "password"])
         .from("users")
         .where("email", email)
         .first()

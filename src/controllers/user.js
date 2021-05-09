@@ -3,6 +3,7 @@ const User = require('../models/user')
 const jwt = require('../middleware/auth')
 
 const login = async (req, res) => {
+    console.log(req.body)
     const email = req.body.email
     const password = req.body.password
 
@@ -14,6 +15,7 @@ const login = async (req, res) => {
 
     return res.status(200).send({
         id: user.id,
+        username: user.username,
         email: user.email,
         authToken: jwt.generateAuthToken(user)
     })
