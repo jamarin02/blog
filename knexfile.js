@@ -1,8 +1,27 @@
 require('dotenv').config({path: './.env'})
 
-const {DB_CLIENT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT} = process.env
+const {DB_CLIENT, DB_DATABASE, DB_DATABASE_TEST, DB_USERNAME, DB_USERNAME_TEST, DB_PASSWORD, DB_PASSWORD_TEST,
+  DB_HOST, DB_PORT} = process.env
 
 module.exports = {
+  test: {
+    client: DB_CLIENT,
+    connection: {
+      database: DB_DATABASE_TEST,
+      user:     DB_USERNAME_TEST,
+      password: DB_PASSWORD_TEST,
+      port: DB_PORT,
+      host: DB_HOST
+    },
+    migrations: {
+      directory: './migrations',
+      tableName: 'knex_migrations'
+    },
+    pool: {
+      min: 2,
+      max: 10
+    }
+  },
   development: {
     client: DB_CLIENT,
     connection: {

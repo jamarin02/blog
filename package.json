@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "serve": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,9 @@
     "pg": "^8.6.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.4.0",
     "nodemon": "^2.0.7"
   }
 }
